@@ -48,7 +48,7 @@ const AnimatedCircle = ({ value, total, color, label, triggerAnimation }) => {
 
 const CodingProfiles = () => {
   const [lcStats, setLcStats] = useState({ total: 0, easy: 0, medium: 0, hard: 0 });
-  const [gfgStats, setGfgStats] = useState({ total: 344, easy: 215, medium: 108, hard: 21 }); // Fallback values
+  const [gfgStats, setGfgStats] = useState({ total: 56, easy: 32, medium: 18, hard: 6 }); // Fallback values
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
