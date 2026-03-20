@@ -14,7 +14,8 @@ const Navbar = () => {
     { name: 'About', href: '/#about' },
     { name: 'Skills', href: '/#skills' },
     { name: 'Projects', href: '/#projects' },
-    { name: 'Coding Profiles', href: '/#coding' },
+    { name: 'Experience', href: '/#experience' },
+    { name: 'Coding', href: '/#coding' },
     { name: 'Education', href: '/#education' },
     { name: 'Contact', href: '/#contact' },
     { name: 'Resume', href: '/resume' }, // Added Resume link
@@ -36,7 +37,7 @@ const Navbar = () => {
       }
 
       if (isHome) {
-        const sections = ['home', 'about', 'skills', 'projects', 'coding', 'education', 'contact'];
+        const sections = ['home', 'about', 'skills', 'projects', 'experience', 'coding', 'education', 'contact'];
         let current = '';
         sections.forEach((section) => {
           const element = document.getElementById(section);
@@ -83,20 +84,20 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-[900px] px-8 py-3 flex justify-between items-center z-[1000] rounded-full transition-all duration-400 border border-[var(--color-border-subtle)] backdrop-blur-xl ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-[1050px] px-6 py-3 flex justify-between items-center z-[1000] rounded-full transition-all duration-400 border border-[var(--color-border-subtle)] backdrop-blur-xl ${
         scrolled
           ? 'top-2 bg-[rgba(255,255,255,0.05)] shadow-[0_10px_40px_rgba(0,0,0,0.3)]'
           : 'bg-[rgba(15,23,42,0.3)]'
       }`}
     >
-      <div className="logo cursor-pointer">
+      <div className="logo cursor-pointer hidden md:block">
         <a href="/#home" onClick={(e) => handleNavClick(e, '/#home')} className="font-mono font-extrabold text-xl text-[var(--color-text-bright)]">
-          
+          {/* Logo empty but takes up space, you can add text or image here later */}
         </a>
       </div>
       
       {/* Desktop Menu */}
-      <div className="hidden md:flex gap-8 items-center">
+      <div className="hidden md:flex gap-5 lg:gap-6 flex-wrap justify-center items-center w-full md:w-auto">
         {navLinks.map((link) => {
           let isActive = false;
           if (link.href.startsWith('/#') && isHome) {

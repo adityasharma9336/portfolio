@@ -1,0 +1,90 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase, Calendar, ChevronRight } from 'lucide-react';
+
+const Experience = () => {
+  const experiences = [
+    {
+      role: 'Competitive Programming Training',
+      company: 'Lovely Professional University',
+      duration: 'June 2025 – July 2025',
+      description: [
+        'Successfully completed a 28-day intensive training program focused on strengthening problem-solving skills and building a strong foundation in data structures and algorithms.',
+        'Practiced core topics including arrays, recursion, dynamic programming, graphs, and sliding window techniques.',
+        'Improved logical thinking and coding efficiency through daily problem-solving.',
+        'Gained hands-on experience with real-world coding challenges and competitive programming patterns.',
+        'Enhanced speed and accuracy in solving problems for technical interviews and coding platforms.'
+      ]
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  return (
+    <section id="experience" className="section-container">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-100px' }}
+      >
+        <h2 className="text-3xl md:text-4xl font-bold mb-16 flex items-center gap-6 text-[var(--color-text-bright)]">
+          <Briefcase className="w-8 h-8 text-[var(--color-brand-primary)]" />
+          Training & Experience
+          <span className="h-[1px] flex-grow bg-[var(--color-border-subtle)] block"></span>
+        </h2>
+
+        <div className="space-y-12">
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="cosmic-card p-6 md:p-8 relative group hover:border-[var(--color-brand-primary)] transition-all duration-300"
+            >
+              {/* Decorative timeline dot */}
+              <div className="hidden md:block absolute -left-[2.85rem] top-8 w-4 h-4 rounded-full bg-[var(--color-brand-primary)] shadow-[0_0_10px_var(--color-brand-primary)] z-10"></div>
+
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6 border-b border-[var(--color-border-subtle)] pb-4">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-bold text-[var(--color-text-bright)] mb-2">
+                    {exp.role}
+                  </h3>
+                  <div className="text-[var(--color-text-main)] font-medium text-lg">
+                    {exp.company}
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 text-[var(--color-text-dim)] font-mono text-sm bg-white/5 px-3 py-1.5 rounded-full border border-white/10 w-fit">
+                  <Calendar className="w-4 h-4" />
+                  {exp.duration}
+                </div>
+              </div>
+
+              <ul className="space-y-3">
+                {exp.description.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-[var(--color-text-main)] leading-relaxed">
+                    <ChevronRight className="w-5 h-5 mt-0.5 text-[var(--color-brand-primary)] shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+export default Experience;
