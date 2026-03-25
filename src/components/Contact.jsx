@@ -1,173 +1,154 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Github, Linkedin, Send } from 'lucide-react';
+import { Mail, Phone, Github, Linkedin } from 'lucide-react';
 
 const Contact = () => {
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  const contactLinks = [
+    {
+      name: 'Email',
+      value: 'adityathakur123456sharma@gmail.com',
+      icon: Mail,
+      href: 'mailto:adityathakur123456sharma@gmail.com',
+      color: 'hover:text-[#f87171] hover:border-[#f87171] hover:shadow-[0_0_20px_rgba(248,113,113,0.3)]'
+    },
+    {
+      name: 'GitHub',
+      value: 'github.com/adityasharma9336',
+      icon: Github,
+      href: 'https://github.com/adityasharma9336',
+      color: 'hover:text-[#a78bfa] hover:border-[#a78bfa] hover:shadow-[0_0_20px_rgba(167,139,250,0.3)]'
+    },
+    {
+      name: 'LinkedIn',
+      value: 'linkedin.com/in/aditya709',
+      icon: Linkedin,
+      href: 'https://www.linkedin.com/in/aditya709',
+      color: 'hover:text-[#60a5fa] hover:border-[#60a5fa] hover:shadow-[0_0_20px_rgba(96,165,250,0.3)]'
+    },
+    {
+      name: 'Phone',
+      value: '+91-9336988762',
+      icon: Phone,
+      href: 'tel:+919336988762',
+      color: 'hover:text-[#4ade80] hover:border-[#4ade80] hover:shadow-[0_0_20px_rgba(74,222,128,0.3)]'
+    }
+  ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setSuccess(false);
-    setError(false);
-
-    fetch("https://formsubmit.co/ajax/adityathakur123456sharma@gmail.com", {
-        method: "POST",
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            name: e.target.name.value,
-            email: e.target.email.value,
-            message: e.target.message.value,
-            _subject: "New Job/Internship Inquiry from Portfolio!"
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        setLoading(false);
-        if (data.success === "true" || data.success === true) {
-            setSuccess(true);
-            e.target.reset();
-            setTimeout(() => setSuccess(false), 5000);
-        } else {
-            setError(true);
-            setTimeout(() => setError(false), 5000);
-        }
-    })
-    .catch(err => {
-        setLoading(false);
-        setError(true);
-        setTimeout(() => setError(false), 5000);
-    });
-  };
+  // Particle generation for cosmic background
+  const particles = Array.from({ length: 30 }).map((_, i) => ({
+    id: i,
+    size: Math.random() * 4 + 1,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    duration: Math.random() * 20 + 10,
+    delay: Math.random() * 5
+  }));
 
   return (
-    <section id="contact" className="section-container pb-32">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 flex items-center gap-6 text-[var(--color-text-bright)]">
+    <section id="contact" className="section-container pb-32 relative overflow-hidden min-h-[80vh] flex items-center justify-center">
+      
+      {/* Cosmic Animated Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-[#020617]">
+        {/* Core glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--color-brand-primary)]/10 rounded-full blur-[150px]"></div>
+        
+        {/* Animated Particles */}
+        {particles.map((p) => (
+          <motion.div
+            key={p.id}
+            className="absolute rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+            style={{
+              width: p.size,
+              height: p.size,
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              x: [0, p.size > 3 ? 50 : -50, 0],
+              opacity: [0.1, 0.8, 0.1],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: p.duration,
+              repeat: Infinity,
+              ease: "linear",
+              delay: p.delay,
+            }}
+          />
+        ))}
 
-          Let's Connect
-          <span className="h-[1px] flex-grow bg-[var(--color-border-subtle)] block"></span>
-        </h2>
+        {/* Floating gradient blobs */}
+        <motion.div
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[20%] left-[10%] w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-[120px] mix-blend-screen"
+        />
+        <motion.div
+          animate={{
+            x: [0, -100, 0],
+            y: [0, 100, 0],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[150px] mix-blend-screen"
+        />
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-12 lg:gap-20">
-          
-          {/* Contact Info container */}
-          <div className="flex flex-col justify-center">
-            <h3 className="text-4xl md:text-5xl font-bold text-[var(--color-text-bright)] mb-6">Hire Me</h3>
-            <p className="text-[var(--color-text-main)] text-lg mb-10 leading-relaxed">
-              I am actively seeking <strong className="text-[var(--color-brand-primary)] drop-shadow-[0_0_8px_var(--color-brand-primary)]">Job and Internship</strong> opportunities. If your team is looking for a passionate Full-Stack Developer to build high-performance applications and solve complex puzzles, I would love to connect.
-            </p>
+      <div className="relative z-10 w-full">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
 
-            <div className="space-y-6 mb-12">
-              <div className="flex items-center gap-4 text-[var(--color-text-main)] hover:text-[var(--color-brand-primary)] transition-colors">
-                <Mail className="w-6 h-6" />
-                <a href="mailto:adityathakur123456sharma@gmail.com" className="font-mono text-sm md:text-base">adityathakur123456sharma@gmail.com</a>
-              </div>
-              <div className="flex items-center gap-4 text-[var(--color-text-main)] hover:text-[var(--color-brand-primary)] transition-colors">
-                <Phone className="w-6 h-6" />
-                <a href="tel:+919336988762" className="font-mono text-sm md:text-base">+91-9336988762</a>
-              </div>
-            </div>
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+            Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-primary)] to-[#38bdf8] drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]">Connect</span>
+          </h2>
+          <p className="text-slate-300 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light">
+            I am actively seeking <strong className="text-white font-semibold glow-text">Job and Internship</strong> opportunities. Ready to build high-performance applications and solve complex puzzles together? 
+          </p>
+        </motion.div>
 
-            <div className="flex gap-6">
-              <a href="https://github.com/adityasharma9336" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-[var(--color-border-subtle)] flex items-center justify-center text-[var(--color-text-main)] hover:bg-[var(--color-brand-primary)] hover:border-[var(--color-brand-primary)] hover:text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(109,40,217,0.4)]">
-                <Github className="w-5 h-5" />
-              </a>
-              <a href="https://www.linkedin.com/in/aditya709" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-[var(--color-border-subtle)] flex items-center justify-center text-[var(--color-text-main)] hover:bg-[var(--color-brand-primary)] hover:border-[var(--color-brand-primary)] hover:text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(109,40,217,0.4)]">
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="cosmic-card p-8 md:p-10 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-primary)] rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none"></div>
-            
-            <form 
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-6 relative z-10"
-            >
-              
-              <div className="relative">
-                <input 
-                  type="text" 
-                  name="name"  
-                  id="name" 
-                  required 
-                  className="peer w-full bg-white/5 border border-[var(--color-border-subtle)] rounded-lg px-4 pt-6 pb-2 text-[var(--color-text-bright)] outline-none transition-all focus:border-[var(--color-brand-primary)] focus:bg-white/10"
-                  placeholder=" "
-                />
-                <label 
-                  htmlFor="name" 
-                  className="absolute left-4 top-4 text-sm text-[var(--color-text-dim)] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:max-h-0 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[var(--color-brand-primary)] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-xs"
-                >
-                  Full Name
-                </label>
-              </div>
-
-              <div className="relative mt-2">
-                <input 
-                  type="email" 
-                  name="email" 
-                  id="email" 
-                  required 
-                  className="peer w-full bg-white/5 border border-[var(--color-border-subtle)] rounded-lg px-4 pt-6 pb-2 text-[var(--color-text-bright)] outline-none transition-all focus:border-[var(--color-brand-primary)] focus:bg-white/10"
-                  placeholder=" "
-                />
-                <label 
-                  htmlFor="email" 
-                  className="absolute left-4 top-4 text-sm text-[var(--color-text-dim)] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[var(--color-brand-primary)] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-xs"
-                >
-                  Email Address
-                </label>
-              </div>
-
-              <div className="relative mt-2">
-                <textarea 
-                  name="message" 
-                  id="message" 
-                  required 
-                  rows="5"
-                  className="peer w-full bg-white/5 border border-[var(--color-border-subtle)] rounded-lg px-4 pt-6 pb-2 text-[var(--color-text-bright)] outline-none transition-all focus:border-[var(--color-brand-primary)] focus:bg-white/10 resize-none"
-                  placeholder=" "
-                />
-                <label 
-                  htmlFor="message" 
-                  className="absolute left-4 top-4 text-sm text-[var(--color-text-dim)] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[var(--color-brand-primary)] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-xs"
-                >
-                  Message (Job Description, Internship Details, etc.)
-                </label>
-              </div>
-
-              <button 
-                type="submit" 
-                disabled={loading}
-                className="btn-filled w-full py-4 text-sm rounded-lg mt-2 flex items-center justify-center gap-2 disabled:opacity-70"
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto px-4">
+          {contactLinks.map((link, index) => {
+            const Icon = link.icon;
+            return (
+              <motion.a
+                key={link.name}
+                href={link.href}
+                target={link.name !== 'Email' && link.name !== 'Phone' ? "_blank" : "_self"}
+                rel={link.name !== 'Email' && link.name !== 'Phone' ? "noreferrer" : ""}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.15 + 0.3 }}
+                whileHover={{ y: -8, scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className={`group relative overflow-hidden p-8 flex flex-col items-center justify-center text-center gap-5 transition-all duration-300 border border-slate-700/50 bg-[#0f172a]/40 backdrop-blur-xl rounded-2xl ${link.color} shadow-lg`}
               >
-                {loading ? 'Sending Genesis...' : 'Send Message'}
-                {!loading && <Send className="w-4 h-4 ml-2" />}
-              </button>
+                {/* Hover Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
-              {success && (
-                <p className="text-[#00b8a3] text-sm text-center mt-2 font-mono">Message delivered successfully!</p>
-              )}
-              {error && (
-                <p className="text-[#ff375f] text-sm text-center mt-2 font-mono">Delivery failed. Please try again.</p>
-              )}
-            </form>
-          </div>
+                <div className="relative z-10 w-20 h-20 rounded-2xl bg-[#1e293b]/80 border border-slate-600/50 flex items-center justify-center group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-inner group-hover:bg-current">
+                  <Icon className="w-10 h-10 text-slate-400 group-hover:text-white transition-colors duration-300 drop-shadow-md" />
+                </div>
+                
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-current transition-colors duration-300">{link.name}</h3>
+                  <p className="text-slate-400 font-mono text-sm tracking-wider opacity-80 group-hover:opacity-100">{link.value}</p>
+                </div>
+              </motion.a>
+            );
+          })}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

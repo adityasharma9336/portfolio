@@ -32,8 +32,26 @@ const Experience = () => {
   };
 
   return (
-    <section id="experience" className="section-container">
+    <section id="experience" className="section-container relative overflow-hidden py-24">
+      
+      {/* Animated Training Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], x: [0, -40, 0], y: [0, 30, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[20%] right-[-5%] w-[300px] h-[300px] bg-[var(--color-brand-primary)]/10 rounded-full blur-[120px] mix-blend-screen"
+        />
+        <motion.div 
+          animate={{ scale: [1, 1.3, 1], x: [0, 40, 0], y: [0, -30, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-[10%] left-[-5%] w-[400px] h-[400px] bg-[#38bdf8]/10 rounded-full blur-[140px] mix-blend-screen"
+        />
+        {/* Particle Grid mesh */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+      </div>
+
       <motion.div
+        className="relative z-10"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"

@@ -17,7 +17,11 @@ const GraphCard = ({
   const [hoveredIndex, setHoveredIndex] = React.useState(null);
 
   return (
-    <div className="bg-[#0f172a] rounded-2xl border border-[var(--color-border-subtle)] p-6 md:p-8 flex flex-col gap-6 w-full shadow-lg relative overflow-hidden transition-all duration-300 hover:border-[#334155]">
+    <motion.div 
+      whileHover={{ y: -10, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="bg-[#0f172a] rounded-2xl border border-[var(--color-border-subtle)] p-6 md:p-8 flex flex-col gap-6 w-full shadow-lg relative overflow-hidden transition-all hover:border-[#334155] hover:shadow-[0_0_30px_rgba(255,255,255,0.05)]"
+    >
       
       {/* Header */}
       <div className="flex flex-col items-center gap-3">
@@ -127,7 +131,7 @@ const GraphCard = ({
           Visit Profile <ExternalLink className="w-4 h-4" />
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -51,15 +51,18 @@ const Education = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="relative group cursor-pointer"
+              whileHover={{ scale: 1.02, x: 10 }}
+              className="relative group cursor-pointer transition-transform duration-300"
             >
               {/* Timeline Dot */}
-              <div 
+              <motion.div 
                 className="absolute -left-[41px] md:-left-[57px] top-0 w-12 h-12 rounded-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-deep)] flex items-center justify-center z-10 transition-all duration-300 group-hover:scale-110"
                 style={{ boxShadow: `0 0 15px ${item.color}30` }}
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3 + index * 0.5, repeat: Infinity, ease: "easeInOut" }}
               >
                 {item.icon}
-              </div>
+              </motion.div>
 
               {/* Education Card */}
               <div 
